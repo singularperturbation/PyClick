@@ -231,6 +231,11 @@ class MDBN(ClickModel):
                     # Clicks after this is impossible if we've stopped examining
                     # here.
                     return 0.0
+            elif rank + 1 < len(search_session.web_results):
+                log_prob += sum(math.log(p) for p in cls._get_tail_clicks(search_session,
+                                                                          rank + 1,
+                                                                          session_params)[0])
+
 
             # Part (1) P(E_r = 1 | \mathbf{C}_{<r})
             exam = cls._get_tail_clicks(search_session, 0, session_params)[1][rank]
